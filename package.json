@@ -1,0 +1,23 @@
+{
+  "name": "wechaty-get-start",
+  "version": "1.0.0",
+  "description": "Wechaty is super easy to use, especially when you are using Docker.    This repo contains the code about the video tutorial.",
+  "main": "mybot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TingYinHelen/wechaty-get-start.git"
+  },
+  "author": "Helen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TingYinHelen/wechaty-get-start/issues"
+  },
+  "homepage": "https://github.com/TingYinHelen/wechaty-get-start#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.11.0",
+    "wechaty": "^0.13.0"
+  }
+}
