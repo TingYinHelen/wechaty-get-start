@@ -4,6 +4,7 @@ const request = require('request');
 const tulingUrl = 'http://openapi.tuling123.com/openapi/api/v2';
 const API_KEY = "9bcdb081db0c4ea18b8890c471ba21b7";
 const USER_ID = '276757';
+let userName = '';
 
 Wechaty.instance()
 	.on('scan', (url, code) => {
@@ -15,6 +16,7 @@ Wechaty.instance()
 	})
 
 	.on('login', user => {
+        userName = user.rawObj.NickName;
 		console.log(`${user} login`)
 	})
 
@@ -33,6 +35,7 @@ Wechaty.instance()
 		const content = m.content()
         const room = m.room()
 
+        // 调用图灵接口
         let requestData = {
             reqType: 0,
             perception: {
@@ -46,8 +49,10 @@ Wechaty.instance()
             }
         };
 
+        console.log('userName', userName);
+        console.log(content.includes(`@${userName}`))
 
-		if (room && room.topic() === 'Chatbot') {
+		if (room && room.topic() === 'Chatbot' && content.includes(`@${userName}`)) {
             request({
                 url: tulingUrl,
                 method: "POST",
@@ -86,7 +91,7 @@ Wechaty.instance()
 		}
 
 		if (/room/.test(content)) {
-			let keyroom = await Room.find({ topic: "test" })
+			let keyroom = await Room.find({ topic: "Chatbot" })
 			if (keyroom) {
 				await keyroom.add(contact)
 				await keyroom.say("welcome!", contact)
@@ -94,7 +99,7 @@ Wechaty.instance()
 		}
 
 		if (/out/.test(content)) {
-			let keyroom = await Room.find({ topic: "test" })
+			let keyroom = await Room.find({ topic: "Chatbot" })
 			if (keyroom) {
 				await keyroom.say("Remove from the room", contact)
 				await keyroom.del(contact)
