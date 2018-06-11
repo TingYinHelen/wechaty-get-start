@@ -49,10 +49,7 @@ Wechaty.instance()
             }
         };
 
-        console.log('userName', userName);
-        console.log(content.includes(`@${userName}`))
-
-		if (room && room.topic() === 'Chatbot' && content.includes(`@${userName}`)) {
+		if (room && (room.topic() === 'Chatbot' || room.topic() === 'Cchatbot') && content.includes(`@${userName}`)) {
             request({
                 url: tulingUrl,
                 method: "POST",
@@ -63,7 +60,7 @@ Wechaty.instance()
                 body: requestData
             }, (error, response, body) => {
                 if (!error && response.statusCode == 200) {
-                    let content = body.results[0].values.text;
+                    let content = body.results[0].values.url ? body.results[0].values.url : body.results[0].values.text;
                     console.log('content=====', content);
                     m.say(content);
                 }
@@ -80,7 +77,7 @@ Wechaty.instance()
                 body: requestData
             }, (error, response, body) => {
                 if (!error && response.statusCode == 200) {
-                    let content = body.results[0].values.text
+                    let content = body.results[0].values.url ? body.results[0].values.url : body.results[0].values.text;
                     console.log('content', content);
                 }
             });
